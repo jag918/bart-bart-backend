@@ -15,6 +15,14 @@ class Api::V1::UsersController < ApplicationController
     render json: response
   end
 
+  def signin
+    @user = User.find_by(name: user_params[:name])
+    if @user
+      render json: @user.formatted
+    end
+    # byebug
+  end
+
   private
 
   def user_params
