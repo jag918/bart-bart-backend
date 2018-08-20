@@ -6,6 +6,8 @@ class CreateAnimals < ActiveRecord::Migration[5.2]
       t.string :description
       t.string :image
       t.integer :owner_id
+      t.integer :zipcode
+      t.string :email
 
       t.timestamps
     end

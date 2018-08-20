@@ -2,6 +2,9 @@ class Api::V1::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @favorites = @user.animal_favorites
+    response = {'user':@user, 'favorites':@favorites}
+    render json: response
   end
 
   def create
@@ -21,6 +24,17 @@ class Api::V1::UsersController < ApplicationController
       render json: @user.formatted
     end
     # byebug
+  end
+
+  def favorite
+    response = {'message':'FAILED'}
+    @user = User.find(params[:user_id])
+    if @user
+      @animal = Animal.find(params[:animal_id])
+      @favorite= Favorite.create(seeker_id:@user[:id], animal_favorite_id:@animal[:id])
+      response = {'message':'SUCCESS'}
+    end
+    render json: response
   end
 
   private

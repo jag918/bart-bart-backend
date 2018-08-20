@@ -1,4 +1,3 @@
-
 require 'typhoeus'
 require 'json'
 
@@ -6,9 +5,11 @@ response = Typhoeus.get('http://api.petfinder.com/pet.find?key=223507c93ee5b0b8c
 whole_response=(JSON.parse(response.body))
 # puts(responses)
 
-
 #all the dog data
 parsed_response=whole_response["petfinder"]["pets"]["pet"]
+
+zipcode = parsed_response.map{|pet| pet["contact"]["zip"]["$t"]}
+email = parsed_response.map{|pet| pet["contact"]["email"]["$t"]}
 
 descriptions=parsed_response.map{|pet| pet["description"]["$t"]}
 names=parsed_response.map{|pet| pet["name"]["$t"]}
@@ -27,7 +28,6 @@ breeds=parsed_response.map{|pet|
     breed_array.push(pet_breed)
   end
 }
-
 
 photo_array=[]
 medias=parsed_response.map{|pet|
@@ -51,8 +51,12 @@ name_array=[]
 names.map{|name| name_array.push(name)}
 # puts (name_array[0])
 
+zipcodes_array=[]
+zipcode.map{|zip| zipcodes_array.push(zip)}
 
+emails_array=[]
+email.map{|mail| emails_array.push(mail)}
 
 for i in 0..name_array.length-1 do
-  Animal.create(name:name_array[i], description:description_array[i], breed:breed_array[i], image:photo_array[i], owner_id:1)
+  Animal.create(name:name_array[i], description:description_array[i], breed:breed_array[i], image:photo_array[i], owner_id:1, zipcode: zipcodes_array[i], email: emails_array[i])
 end

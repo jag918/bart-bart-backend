@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 2018_08_10_190121) do
     t.string "description"
     t.string "image"
     t.integer "owner_id"
+    t.integer "zipcode"
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
