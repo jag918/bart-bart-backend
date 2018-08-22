@@ -21,7 +21,7 @@ class Api::V1::UsersController < ApplicationController
   def signin
     @user = User.find_by(name: user_params[:name])
     if @user
-      render json: @user.formatted
+      render json: @user
     end
     # byebug
   end
