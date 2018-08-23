@@ -49,7 +49,6 @@ class Api::V1::UsersController < ApplicationController
     render json: response
   end
 
-
   private
 
   def user_params

@@ -4,11 +4,12 @@ Rails.application.routes.draw do
       resources :animals, only: [:index, :show, :create]
       resources :users, only: [:show, :create]
       resources :favorites, only: [:index]
-      resources :messages, only: [:index,:create]
+      resources :messages, only: [:index,:create, :show]
+
+
       post '/signin', to: "users#signin"
       patch '/userfavorites', to: "users#favorite"
       delete "users/delete_favorite"
-
 
     end
   end
