@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :messages, only: [:index,:create]
       post '/signin', to: "users#signin"
       patch '/userfavorites', to: "users#favorite"
+      delete "users/delete_favorite"
 
 
     end

@@ -37,6 +37,19 @@ class Api::V1::UsersController < ApplicationController
     render json: response
   end
 
+  def delete_favorite
+    response = {'message':'FAILED'}
+    @user = User.find(params[:user_id])
+    if @user
+      @animal = Animal.find(params[:animal_id])
+      @favorite= Favorite.find_by(seeker_id:@user[:id], animal_favorite_id:@animal[:id])
+      @favorite.delete
+      response = {'message':'SUCCESS'}
+    end
+    render json: response
+  end
+
+
   private
 
   def user_params
